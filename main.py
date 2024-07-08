@@ -1,28 +1,20 @@
+from database import create_tables, drop_tables
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
-
-app = FastAPI()
-
-
-@app.get("/")
-async def root():
-    return {"message": "some_mem"}
+from router import router as api_router
 
 
-@app.get("/memes/{id}")
-async def get_mem_by_id(id: int):
-    return {id}
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await drop_tables()
+    print('Clearing db')
+    await create_tables()
+    print('Creating db')
+    yield
+    print('Shutting down')
 
 
-@app.post("/memes")
-async def add_mem(name: str):
-    return {"message": f"Hello {name}"}
+app = FastAPI(lifespan=lifespan)
+app.include_router(api_router)
 
 
-@app.put("/memes/{id}")
-async def renew_exist_mem(name: str):
-    return {"message": f"Hello {name}"}
-
-
-@app.delete("/memes/{id}")
-async def delete_mem(id: int):
-    return {"message": f"Hello {id}"}
