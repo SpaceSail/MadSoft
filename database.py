@@ -10,6 +10,7 @@ new_session = async_sessionmaker(engine, expire_on_commit=False)
 class Model(DeclarativeBase):
     pass
 
+# instance of the database table
 class MemORM(Model):
     __tablename__ = "memes"
 
@@ -18,6 +19,7 @@ class MemORM(Model):
     description: Mapped[Optional[str]]
 
 
+# creating/deleting tables
 async def create_tables():
     async with engine.begin() as conn:
         await conn.run_sync(Model.metadata.create_all)
