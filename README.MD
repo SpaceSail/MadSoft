@@ -29,7 +29,7 @@ git clone https://github.com/SpaceSail/MadSoft.git
 Креды для доступа к хранилищу:
 [docker-compose.yaml](Docker-compose.yaml)
 
-![alt](img/Снимок экрана 2024-07-12 в 18.48.55.png)
+![alt](img/1.png)
 
 Модели и валидация данных: [schemas.py](schemas.py)
 
