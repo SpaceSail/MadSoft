@@ -45,3 +45,4 @@ git clone https://github.com/SpaceSail/MadSoft.git
 Для рабоиы с файлами необходимо передать access_key и secret_key в экземпляр 
 класса storage. Ключи генерируются в веб-интерфейсе храниилища:
 
+![alt](img/2.png)
