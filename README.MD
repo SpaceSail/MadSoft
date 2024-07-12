@@ -28,7 +28,7 @@ git clone https://github.com/SpaceSail/MadSoft.git
 
 Креды для доступа к хранилищу:
 [docker-compose.yaml](Docker-compose.yaml)
-![](/Users/denisisaev/Desktop/Снимок экрана 2024-07-12 в 18.48.55.png)
+
 
 Модели и валидация данных: [schemas.py](schemas.py)
 
@@ -43,5 +43,4 @@ git clone https://github.com/SpaceSail/MadSoft.git
 По умолчанию, веб-интерфейс доступен на localhost:9000
 Для рабоиы с файлами необходимо передать access_key и secret_key в экземпляр 
 класса storage. Ключи генерируются в веб-интерфейсе храниилища:
-![](/Users/denisisaev/Desktop/Снимок экрана 2024-07-12 в 19.01.52.png) 
 
