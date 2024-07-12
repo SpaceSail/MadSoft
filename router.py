@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 from fastapi import APIRouter, UploadFile
 from starlette import status
 from starlette.responses import JSONResponse
@@ -7,19 +5,21 @@ from models import MemStorage
 from schemas import MemAdd
 from storage import storage
 
-router = APIRouter(tags=["router"], prefix="/memes")
+router = APIRouter(tags=["router"])
 
 
+@router.get('/')
+async def root():
+    return {'message': 'Root'}
 # all memes list
-@router.get("/")
+@router.get("/memes")
 async def get_memes():
     mem_id = await storage.list_objects()
-    return mem_id, JSONResponse(status_code=status.HTTP_200_OK,
-                                content={"message": "success"})
+    return mem_id
 
 
 # getting exact picture by id
-@router.get("/{id}")
+@router.get("/memes/{id}")
 async def get_mem_by_id(id: int) -> JSONResponse:
     mem = await MemStorage.get_mem(id)
     if mem is None:
@@ -31,7 +31,7 @@ async def get_mem_by_id(id: int) -> JSONResponse:
 
 
 # adding picture
-@router.post("/")
+@router.post("/memes")
 async def add_mem(file: UploadFile) -> JSONResponse:
     check = await MemStorage.check_mem(file.filename)
     if check is True:
@@ -48,7 +48,7 @@ async def add_mem(file: UploadFile) -> JSONResponse:
 
 
 # renewing existed pic
-@router.put("/{id}")
+@router.put("/memes/{id}")
 async def renew_exist_mem(file: UploadFile, id: int):
     await storage.upload_file(file.filename, file.file, file.size)
     name = await MemStorage.update_mem(id, name=file.filename)
@@ -59,7 +59,7 @@ async def renew_exist_mem(file: UploadFile, id: int):
 
 
 # delete picture
-@router.delete("/{id}")
+@router.delete("/memes/{id}")
 async def delete_mem(id: int):
     mem = await MemStorage.get_mem(id)
     if mem is None:
@@ -68,3 +68,5 @@ async def delete_mem(id: int):
     else:
         await MemStorage.delete_mem(id)
         storage.delete_file(filename=mem)
+        return JSONResponse(status_code=status.HTTP_200_OK,
+                            content={"message": f"{mem} deleted"})

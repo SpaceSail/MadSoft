@@ -21,6 +21,7 @@ class FileStorage:
     # checking if bucket exists, otherwise creating it
     def check_bucket(self) -> str:
         if self.client.bucket_exists(self.bucket):
+            print('ok')
             return f"Bucket exists: {self.bucket}"
         else:
             self.client.make_bucket(f"bucket created: {self.bucket}")
@@ -44,5 +45,7 @@ class FileStorage:
 
 
 # an instance to connect to the storage
-storage = FileStorage("127.0.0.1:9000", 'YtbcKEKGO4vLHdv6W6zk',
-                      'Zc1UTPFx6kRrSNJgo1Dfz0i9v5lU4ujSQoWNlzWJ', 'test')
+storage = FileStorage("127.0.0.1:9000", 'niCT17yEjaM9HwWcjvEo',
+                      'QL1gNwiZY8kaGPOfYki9i82f043wboTjqR1DSc94', 'memes')
+
+
